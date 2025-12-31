@@ -1,0 +1,171 @@
+<?php
+ob_start();
+include __DIR__ . '/includes/db.php';
+include_once __DIR__ . '/includes/security.php';
+include_once __DIR__ . '/includes/logger.php';
+
+$error = '';
+$success = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    verify_csrf_token($_POST['csrf_token']);
+
+    // Basic rate limiting: max 5 attempts per 15 minutes per session/IP
+    $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+    if (!isset($_SESSION['login_attempts'])) {
+        $_SESSION['login_attempts'] = ['count' => 0, 'first' => time(), 'ip' => $ip];
+    }
+    $attempts = &$_SESSION['login_attempts'];
+    $window = 15 * 60;
+    if ($attempts['ip'] !== $ip || (time() - $attempts['first']) > $window) {
+        $attempts = ['count' => 0, 'first' => time(), 'ip' => $ip];
+    }
+    if ($attempts['count'] >= 5) {
+        $error = "Too many login attempts. Please try again later.";
+    } else {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT * FROM users WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        if (password_verify($password, $row['password'])) {
+            // Check for 2FA
+            if ($row['two_factor_enabled']) {
+                $_SESSION['2fa_pending_user_id'] = $row['id'];
+                $_SESSION['2fa_role'] = $row['role']; // Store role for redirection after 2FA
+                header("Location: verify_2fa.php");
+                exit();
+            }
+
+            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['role'] = $row['role'];
+            $_SESSION['full_name'] = $row['full_name'];
+
+            // Log Login
+            log_activity($conn, $row['id'], $row['role'], 'Logged in');
+
+            if ($row['role'] == 'admin') {
+                header("Location: admin/index.php");
+            } else {
+                header("Location: teacher/index.php");
+            }
+            exit();
+        } else {
+            $error = "Invalid password.";
+            $attempts['count']++;
+            // Log Failed Attempt (optional, but good practice)
+            // log_activity($conn, 0, 'guest', 'Failed login attempt: ' . $username);
+        }
+    } else {
+        $error = "User not found.";
+        $attempts['count']++;
+    }
+    } // end rate limit else
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Topaz International School</title>
+    <link rel="icon" href="assets/images/logo.jpg">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            background-color: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .login-card {
+            max-width: 400px;
+            width: 100%;
+            border: none;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 15px;
+        }
+        .login-header {
+            background: var(--gradient-red);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card login-card">
+    <div class="login-header">
+        <h3 class="fw-bold mb-0">Staff Login</h3>
+        <p class="small mb-0 opacity-75">Topaz International School</p>
+    </div>
+    <div class="card-body p-4">
+        <form method="POST" action="">
+            <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
+            <div class="mb-3">
+                <label for="username" class="form-label">School Email</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    <input type="email" class="form-control" id="username" name="username" placeholder="ID@topazschoolminna.com" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label text-muted small">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0"><i class="fas fa-lock text-muted"></i></span>
+                    <input type="password" name="password" class="form-control bg-light border-start-0 ps-0" placeholder="Enter your password" required>
+                </div>
+                <div class="text-end mt-1">
+                    <a href="forgot_password.php" class="small text-muted text-decoration-none">Forgot Password?</a>
+                </div>
+            </div>
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary py-2 fw-bold">Login</button>
+            </div>
+            
+            <div class="text-center mb-3">
+                 <p class="mb-0 text-muted small">Don't have an account? <a href="register.php" class="text-primary text-decoration-none fw-semibold">Register Staff</a></p>
+            </div>
+
+            <div class="text-center">
+                <a href="index.php" class="text-decoration-none small text-muted"><i class="fas fa-arrow-left me-1"></i> Back to Homepage</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="assets/js/main.js"></script>
+<script>
+    <?php if($error): ?>
+        Swal.fire({
+            icon: 'error',
+            title: 'Login Failed',
+            text: '<?php echo $error; ?>',
+            confirmButtonColor: '#d33'
+        });
+    <?php endif; ?>
+</script>
+</body>
+</html>

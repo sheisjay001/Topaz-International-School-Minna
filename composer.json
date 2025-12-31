@@ -1,0 +1,10 @@
+{
+  "name": "tism/portal",
+  "type": "project",
+  "description": "Topaz International School Minna Portal - Official",
+  "require": {
+    "dompdf/dompdf": "^2.0",
+    "phpmailer/phpmailer": "^7.0",
+    "robthree/twofactorauth": "^1.8"
+  }
+}

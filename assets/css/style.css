@@ -1,0 +1,188 @@
+:root {
+    --primary-color: #800000; /* Maroon */
+    --primary-light: #A52A2A; /* Lighter Red/Brown blend */
+    --secondary-color: #FFD700; /* Gold - classic pairing with Maroon */
+    --navy-blue: #003366; /* Navy Blue for primary elements */
+    --text-dark: #333333;
+    --light-bg: #f8f9fa;
+    --gradient-red: linear-gradient(135deg, #800000 0%, #B22222 100%);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll from animations */
+}
+
+/* Bootstrap Overrides for Navy Blue */
+.text-primary {
+    color: var(--navy-blue) !important;
+}
+
+.bg-primary {
+    background-color: var(--navy-blue) !important;
+}
+
+.alert-info {
+    color: #002244;
+    background-color: #e6f0ff;
+    border-color: #b8daff;
+}
+
+/* Top Bar */
+.top-bar {
+    background: var(--gradient-red);
+    font-size: 0.85rem;
+}
+
+/* Navbar */
+.navbar-brand {
+    color: var(--primary-color) !important;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    color: var(--text-dark) !important;
+    font-weight: 500;
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary-color) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #002244;
+    border-color: #002244;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(0, 51, 102, 0.8), rgba(0, 34, 68, 0.8)), url('../images/school-building.jfif');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+/* Features/Aspects */
+.feature-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+    height: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    width: 80px;
+    height: 80px;
+    background: rgba(128, 0, 0, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.feature-card:hover .feature-icon {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Hover Scale Effect */
+.hover-scale {
+    transition: transform 0.3s ease-in-out;
+}
+
+.hover-scale:hover {
+    transform: scale(1.02);
+}
+
+/* Footer */
+footer {
+    background-color: #222;
+    color: white;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.2rem;
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--secondary-color);
+}
+
+/* Animations Helper */
+[data-aos] {
+    pointer-events: none;
+}
+[data-aos].aos-animate {
+    pointer-events: auto;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 991px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .navbar-collapse {
+        background: white;
+        padding: 15px;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+}
+
+@media (max-width: 768px) {
+    .top-bar {
+        text-align: center;
+    }
+    .hero-section {
+        min-height: 500px;
+        padding: 80px 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    .btn-lg {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+}
