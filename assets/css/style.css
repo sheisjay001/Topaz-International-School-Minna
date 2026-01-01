@@ -153,19 +153,20 @@ body {
 
 /* Footer */
 footer {
-    background-color: #222;
-    color: white;
+    /* background-color: #222; Removed for Light Theme */
+    /* color: white; Removed for Light Theme */
+    border-top: 1px solid #e5e7eb;
 }
 
 .social-links a {
-    color: white;
+    color: var(--primary-color);
     font-size: 1.2rem;
     margin-right: 15px;
     transition: color 0.3s;
 }
 
 .social-links a:hover {
-    color: var(--secondary-color);
+    color: var(--secondary-color) !important;
 }
 
 /* Animations Helper */

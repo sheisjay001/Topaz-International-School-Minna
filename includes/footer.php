@@ -1,31 +1,31 @@
 <!-- Footer -->
-<footer class="footer text-white pt-5 pb-3">
+<footer class="footer bg-light text-primary pt-5 pb-3">
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-4">
-                <h5 class="fw-bold mb-3">Topaz International School</h5>
-                <p class="small text-white-50">
+                <h5 class="fw-bold mb-3 text-primary">Topaz International School</h5>
+                <p class="small text-muted">
                     Providing quality education, fostering discipline, and promoting excellence in a conducive environment.
                 </p>
                 <div class="social-links mt-3">
-                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-primary me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-primary me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-primary me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-primary"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <h5 class="fw-bold mb-3">Quick Links</h5>
+                <h5 class="fw-bold mb-3 text-primary">Quick Links</h5>
                 <ul class="list-unstyled">
-                    <li><a href="index.php" class="text-white-50 text-decoration-none">Home</a></li>
-                    <li><a href="about.php" class="text-white-50 text-decoration-none">About Us</a></li>
-                    <li><a href="admissions.php" class="text-white-50 text-decoration-none">Admissions</a></li>
-                    <li><a href="contact.php" class="text-white-50 text-decoration-none">Contact Us</a></li>
+                    <li><a href="index.php" class="text-muted text-decoration-none hover-primary">Home</a></li>
+                    <li><a href="about.php" class="text-muted text-decoration-none hover-primary">About Us</a></li>
+                    <li><a href="admissions.php" class="text-muted text-decoration-none hover-primary">Admissions</a></li>
+                    <li><a href="contact.php" class="text-muted text-decoration-none hover-primary">Contact Us</a></li>
                 </ul>
             </div>
             <div class="col-md-4 mb-4">
-                <h5 class="fw-bold mb-3">Contact Info</h5>
-                <ul class="list-unstyled text-white-50">
+                <h5 class="fw-bold mb-3 text-primary">Contact Info</h5>
+                <ul class="list-unstyled text-primary">
                     <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Minna, Niger State, Nigeria</li>
                     <li class="mb-2"><i class="fas fa-phone me-2"></i> +234 800 123 4567</li>
                     <li class="mb-2"><i class="fas fa-envelope me-2"></i> info@topazschoolminna.com</li>
@@ -35,10 +35,10 @@
         <hr class="border-secondary my-4">
         <div class="row">
             <div class="col-md-6 text-center text-md-start">
-                <p class="small mb-0">&copy; <?php echo date('Y'); ?> Topaz International School Minna. All rights reserved.</p>
+                <p class="small mb-0 text-muted">&copy; <?php echo date('Y'); ?> Topaz International School Minna. All rights reserved.</p>
             </div>
             <div class="col-md-6 text-center text-md-end">
-                <p class="small mb-0">Designed for Excellence</p>
+                <p class="small mb-0 text-muted">Designed for Excellence</p>
             </div>
         </div>
     </div>
