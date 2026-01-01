@@ -1,4 +1,7 @@
 {
+    "env": {
+        "DEPLOYMENT_TRIGGER": "force_rebuild"
+    },
     "builds": [
         {
             "src": "**/*.php",
