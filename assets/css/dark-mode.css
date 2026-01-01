@@ -92,6 +92,43 @@ body.dark-mode {
     filter: invert(1) grayscale(100%) brightness(200%);
 }
 
+/* Better Contrast for Primary Colors in Dark Mode */
+.dark-mode .text-primary {
+    color: #66b2ff !important; /* Lighter Blue */
+}
+
+.dark-mode a.text-primary:hover,
+.dark-mode a.text-primary:focus {
+    color: #3399ff !important;
+}
+
+.dark-mode .btn-primary {
+    background-color: #0d6efd !important; /* Bootstrap Primary Blue */
+    border-color: #0d6efd !important;
+    color: #fff !important;
+}
+
+.dark-mode .btn-primary:hover {
+    background-color: #0b5ed7 !important;
+    border-color: #0a58ca !important;
+}
+
+.dark-mode .bg-primary {
+    background-color: #0a1929 !important; /* Very Dark Blue for Backgrounds */
+}
+
+.dark-mode .border-primary {
+    border-color: #66b2ff !important;
+}
+
+.dark-mode .nav-link.active {
+    color: #66b2ff !important;
+}
+
+.dark-mode .nav-link::after {
+    background-color: #66b2ff !important;
+}
+
 @media print {
     body.dark-mode {
         background-color: white !important;
