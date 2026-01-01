@@ -21,7 +21,7 @@
 <body>
 
 <!-- Top Bar -->
-<!-- Deployment v1.1 -->
+<!-- Deployment v1.2 -->
 <div class="top-bar py-2 text-primary">
     <div class="container">
         <div class="row">
