@@ -84,83 +84,19 @@ if (!$student) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile | TISM Student Portal</title>
-    <link rel="icon" href="../assets/images/logo.jpg">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
-    <link rel="stylesheet" href="../assets/css/dark-mode.css">
-    <style>
-        .profile-img-large { width: 150px; height: 150px; object-fit: cover; border: 5px solid #fff; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
-    </style>
-</head>
-<body>
+<?php
+$page_title = 'My Profile';
+$extra_css = '<style>.profile-img-large { width: 150px; height: 150px; object-fit: cover; border: 5px solid #fff; box-shadow: 0 0 15px rgba(0,0,0,0.1); }</style>';
+include 'includes/header.php';
+?>
 
 <!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-        <a href="#" class="sidebar-brand">
-            <i class="fas fa-user-graduate me-2"></i>TISM STUDENT
-        </a>
-        <button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="sidebar-menu">
-        <a href="index.php" class="menu-item">
-            <i class="fas fa-tachometer-alt"></i> Dashboard
-        </a>
-        <a href="profile.php" class="menu-item active">
-            <i class="fas fa-user"></i> My Profile
-        </a>
-        <a href="results.php" class="menu-item">
-            <i class="fas fa-chart-bar"></i> My Results
-        </a>
-        <a href="timetable.php" class="menu-item">
-            <i class="fas fa-calendar-alt"></i> Timetables
-        </a>
-        <a href="attendance.php" class="menu-item">
-            <i class="fas fa-calendar-check"></i> Attendance
-        </a>
-        <a href="fees.php" class="menu-item">
-            <i class="fas fa-money-bill-wave"></i> School Fees
-        </a>
-        <a href="cbt.php" class="menu-item">
-            <i class="fas fa-laptop-code"></i> CBT Exams
-        </a>
-        <a href="notifications.php" class="menu-item">
-            <i class="fas fa-bell"></i> Notifications
-        </a>
-        <a href="activity_log.php" class="menu-item">
-            <i class="fas fa-history"></i> Activity Log
-        </a>
-        <a href="#" id="darkModeToggle" class="menu-item">
-            <i class="fas fa-moon"></i> Dark Mode
-        </a>
-        <a href="../includes/logout.php" class="menu-item text-danger mt-3">
-            <i class="fas fa-sign-out-alt"></i> Logout
-        </a>
-    </div>
-</div>
+<?php include 'includes/sidebar.php'; ?>
 
 <!-- Main Content -->
 <div class="main-content" id="main-content">
-        <!-- Topbar -->
-        <div class="topbar">
-            <button class="btn btn-light d-lg-none" id="sidebarToggle"><i class="fas fa-bars"></i></button>
-            <h4 class="mb-0 fw-bold text-primary">Student Profile</h4>
-            <div class="user-profile">
-                <div class="text-end d-none d-md-block">
-                    <small class="text-muted d-block">Student Panel</small>
-                </div>
-                <div class="user-avatar bg-primary text-white">
-                    <i class="fas fa-user"></i>
-                </div>
-            </div>
-        </div>
+    <!-- Topbar -->
+    <?php include 'includes/topbar.php'; ?>
 
         <?php if($message): ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -345,59 +281,60 @@ if (!$student) {
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/dashboard.js"></script>
-<script src="../assets/js/dark-mode.js"></script>
+<?php include 'includes/footer.php'; ?>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const passwordInput = document.getElementById('new_password');
     const strengthBar = document.getElementById('password-strength-bar');
     const strengthText = document.getElementById('password-strength-text');
 
-    passwordInput.addEventListener('input', function() {
-        const password = passwordInput.value;
-        let strength = 0;
-        let status = '';
-        let colorClass = '';
+    if (passwordInput) {
+        passwordInput.addEventListener('input', function() {
+            const password = passwordInput.value;
+            let strength = 0;
+            let status = '';
+            let colorClass = '';
+            let width = '0%';
 
-        if (password.length === 0) {
-            strengthBar.style.width = '0%';
-            strengthText.textContent = 'Enter a strong password.';
-            return;
-        }
+            if (password.length === 0) {
+                strengthBar.style.width = '0%';
+                strengthText.textContent = 'Enter a strong password.';
+                return;
+            }
 
-        // Strength Logic
-        if (password.length >= 6) strength += 1;
-        if (password.length >= 10) strength += 1;
-        if (/[A-Z]/.test(password)) strength += 1;
-        if (/[0-9]/.test(password)) strength += 1;
-        if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+            // Strength Logic
+            if (password.length >= 6) strength += 1;
+            if (password.length >= 10) strength += 1;
+            if (/[A-Z]/.test(password)) strength += 1;
+            if (/[0-9]/.test(password)) strength += 1;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 1;
 
-        switch (strength) {
-            case 0:
-            case 1:
-            case 2:
-                status = 'Weak';
-                colorClass = 'bg-danger';
-                width = '33%';
-                break;
-            case 3:
-            case 4:
-                status = 'Medium';
-                colorClass = 'bg-warning';
-                width = '66%';
-                break;
-            case 5:
-                status = 'Strong';
-                colorClass = 'bg-success';
-                width = '100%';
-                break;
-        }
+            switch (strength) {
+                case 0:
+                case 1:
+                case 2:
+                    status = 'Weak';
+                    colorClass = 'bg-danger';
+                    width = '33%';
+                    break;
+                case 3:
+                case 4:
+                    status = 'Medium';
+                    colorClass = 'bg-warning';
+                    width = '66%';
+                    break;
+                case 5:
+                    status = 'Strong';
+                    colorClass = 'bg-success';
+                    width = '100%';
+                    break;
+            }
 
-        strengthBar.style.width = width;
-        strengthBar.className = 'progress-bar ' + colorClass;
-        strengthText.textContent = 'Strength: ' + status;
-    });
+            strengthBar.style.width = width;
+            strengthBar.className = 'progress-bar ' + colorClass;
+            strengthText.textContent = 'Strength: ' + status;
+        });
+    }
 });
 </script>
 </body>

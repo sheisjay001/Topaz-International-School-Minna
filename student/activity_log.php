@@ -143,8 +143,4 @@ if ($check_table->num_rows > 0) {
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/dashboard.js"></script>
-<script src="../assets/js/dark-mode.js"></script>
-</body>
-</html>
+<?php include 'includes/footer.php'; ?>

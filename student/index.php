@@ -65,127 +65,57 @@ while($row = $analytics_res->fetch_assoc()) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard | TISM</title>
-    <link rel="icon" href="../assets/images/logo.jpg">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
-    <link rel="stylesheet" href="../assets/css/dark-mode.css">
-    <style>
-        .stat-card { border-radius: 10px; border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-    </style>
-</head>
-<body>
+<?php
+$page_title = 'Dashboard';
+include 'includes/header.php';
+?>
 
 <!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-        <a href="#" class="sidebar-brand">
-            <i class="fas fa-user-graduate me-2"></i>TISM STUDENT
-        </a>
-        <button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="sidebar-menu">
-        <a href="index.php" class="menu-item active">
-            <i class="fas fa-tachometer-alt"></i> Dashboard
-        </a>
-        <a href="profile.php" class="menu-item">
-            <i class="fas fa-user"></i> My Profile
-        </a>
-        <a href="results.php" class="menu-item">
-            <i class="fas fa-chart-bar"></i> My Results
-        </a>
-        <a href="timetable.php" class="menu-item">
-            <i class="fas fa-calendar-alt"></i> Timetables
-        </a>
-        <a href="attendance.php" class="menu-item">
-            <i class="fas fa-calendar-check"></i> Attendance
-        </a>
-        <a href="fees.php" class="menu-item">
-            <i class="fas fa-money-bill-wave"></i> School Fees
-        </a>
-        <a href="cbt.php" class="menu-item">
-            <i class="fas fa-laptop-code"></i> CBT Exams
-        </a>
-        <a href="notifications.php" class="menu-item">
-            <i class="fas fa-bell"></i> Notifications
-        </a>
-        <a href="activity_log.php" class="menu-item">
-            <i class="fas fa-history"></i> Activity Log
-        </a>
-        <a href="#" id="darkModeToggle" class="menu-item">
-            <i class="fas fa-moon"></i> Dark Mode
-        </a>
-        <a href="../includes/logout.php" class="menu-item mt-5 text-danger">
-            <i class="fas fa-sign-out-alt"></i> Logout
-        </a>
-    </div>
-</div>
+<?php include 'includes/sidebar.php'; ?>
 
 <!-- Main Content -->
 <div class="main-content" id="main-content">
     <!-- Topbar -->
-    <div class="topbar">
-        <button class="btn btn-light d-lg-none" id="sidebarToggle"><i class="fas fa-bars"></i></button>
-        <h4 class="mb-0 fw-bold text-primary">Dashboard</h4>
-        <div class="user-profile">
-            <div class="text-end d-none d-md-block">
-                <small class="text-muted d-block">Welcome,</small>
-                <span class="fw-bold"><?php echo htmlspecialchars($student_name); ?></span>
-            </div>
-            <div class="user-avatar bg-primary text-white">
-                <?php if($student_photo): ?>
-                    <img src="../<?php echo $student_photo; ?>" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
-                <?php else: ?>
-                    <?php echo strtoupper(substr($student_name, 0, 1)); ?>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
+    <?php include 'includes/topbar.php'; ?>
 
     <!-- Welcome Section -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 text-white">
         <div>
-            <h2 class="fw-bold text-dark">Welcome, <?php echo htmlspecialchars($student_name); ?></h2>
-            <p class="text-muted">Class: <span class="badge bg-primary"><?php echo htmlspecialchars($student_class); ?></span></p>
+            <h2 class="fw-bold">Welcome, <?php echo htmlspecialchars($student_name); ?></h2>
+            <p class="opacity-75">Class: <span class="badge bg-warning text-dark"><?php echo htmlspecialchars($student_class); ?></span></p>
         </div>
     </div>
 
     <!-- Stats Row -->
     <div class="row g-4 mb-4">
         <div class="col-md-4">
-            <div class="card stat-card bg-white p-3">
+            <div class="card stat-card p-3 h-100">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="text-muted text-uppercase small fw-bold">Attendance</h6>
                         <h3 class="fw-bold text-primary mb-0"><?php echo $attendance_pct; ?>%</h3>
                     </div>
-                    <div class="icon-box bg-light rounded-circle p-3 text-primary">
+                    <div class="icon-box bg-primary bg-opacity-10 rounded-circle p-3 text-primary">
                         <i class="fas fa-user-clock fa-lg"></i>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card stat-card bg-white p-3">
+            <div class="card stat-card p-3 h-100">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="text-muted text-uppercase small fw-bold">Next Exam</h6>
                         <h3 class="fw-bold text-success mb-0">Dec 15</h3>
                     </div>
-                    <div class="icon-box bg-light rounded-circle p-3 text-success">
+                    <div class="icon-box bg-success bg-opacity-10 rounded-circle p-3 text-success">
                         <i class="fas fa-calendar-alt fa-lg"></i>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card stat-card bg-white p-3">
+            <div class="card stat-card p-3 h-100">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="text-muted text-uppercase small fw-bold">Fee Status</h6>
@@ -197,7 +127,7 @@ while($row = $analytics_res->fetch_assoc()) {
                             <small class="text-success fw-bold">No Debts</small>
                         <?php endif; ?>
                     </div>
-                    <div class="icon-box bg-light rounded-circle p-3 text-<?php echo ($outstanding > 0) ? 'danger' : 'success'; ?>">
+                    <div class="icon-box bg-<?php echo ($outstanding > 0) ? 'danger' : 'success'; ?> bg-opacity-10 rounded-circle p-3 text-<?php echo ($outstanding > 0) ? 'danger' : 'success'; ?>">
                         <i class="fas fa-money-bill-wave fa-lg"></i>
                     </div>
                 </div>
@@ -208,8 +138,8 @@ while($row = $analytics_res->fetch_assoc()) {
     <!-- Analytics Chart -->
     <div class="row mb-4">
         <div class="col-12">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white fw-bold py-3"><i class="fas fa-chart-line me-2"></i> Performance Overview</div>
+            <div class="card glass-panel border-0">
+                <div class="card-header bg-transparent border-bottom border-light fw-bold py-3"><i class="fas fa-chart-line me-2"></i> Performance Overview</div>
                 <div class="card-body">
                     <canvas id="performanceChart" style="max-height: 300px;"></canvas>
                 </div>
@@ -218,8 +148,8 @@ while($row = $analytics_res->fetch_assoc()) {
     </div>
 
     <!-- Recent Results -->
-    <div class="card shadow-sm border-0">
-        <div class="card-header bg-white fw-bold py-3">Recent Academic Performance</div>
+    <div class="card glass-panel border-0">
+        <div class="card-header bg-transparent border-bottom border-light fw-bold py-3">Recent Academic Performance</div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -253,10 +183,7 @@ while($row = $analytics_res->fetch_assoc()) {
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="../assets/js/dashboard.js"></script>
-<script src="../assets/js/dark-mode.js"></script>
+<?php include 'includes/footer.php'; ?>
 <script>
     // Pass PHP data to JS
     const terms = <?php echo json_encode($terms); ?>;

@@ -1,66 +1,89 @@
 :root {
-    --primary-color: #800000; /* Maroon */
-    --primary-light: #A52A2A; /* Lighter Red/Brown blend */
-    --secondary-color: #FFD700; /* Gold - classic pairing with Maroon */
-    --navy-blue: #003366; /* Navy Blue for primary elements */
-    --text-dark: #333333;
-    --light-bg: #f8f9fa;
-    --gradient-red: linear-gradient(135deg, #800000 0%, #B22222 100%);
+    /* Topaz Theme Palette */
+    --primary-color: #002147; /* Deep Navy Blue (Royal/Academic) */
+    --primary-light: #003366;
+    --secondary-color: #FFD700; /* Gold/Amber (Topaz Gemstone) */
+    --accent-color: #a52a2a; /* Maroon (Legacy/Accent) */
+    
+    --text-dark: #1e293b; /* Slate 800 */
+    --text-muted: #64748b; /* Slate 500 */
+    --light-bg: #f8fafc; /* Slate 50 */
+    
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    
+    --gradient-primary: linear-gradient(135deg, #002147 0%, #004e92 100%);
+    --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FDB931 100%);
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', 'Poppins', sans-serif;
     color: var(--text-dark);
     line-height: 1.6;
-    overflow-x: hidden; /* Prevent horizontal scroll from animations */
+    background-color: var(--light-bg);
+    overflow-x: hidden;
 }
 
-/* Bootstrap Overrides for Navy Blue */
-.text-primary {
-    color: var(--navy-blue) !important;
+/* Modern Utilities */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-.bg-primary {
-    background-color: var(--navy-blue) !important;
+.shadow-soft {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-.alert-info {
-    color: #002244;
-    background-color: #e6f0ff;
-    border-color: #b8daff;
+.text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* Top Bar */
-.top-bar {
-    background: var(--gradient-red);
-    font-size: 0.85rem;
-}
-
-/* Navbar */
-.navbar-brand {
-    color: var(--primary-color) !important;
-    font-size: 1.5rem;
-}
-
-.nav-link {
-    color: var(--text-dark) !important;
-    font-weight: 500;
-    margin-right: 15px;
-    transition: color 0.3s;
-}
-
-.nav-link:hover, .nav-link.active {
-    color: var(--primary-color) !important;
-}
-
+/* Bootstrap Overrides */
+.text-primary { color: var(--primary-color) !important; }
+.bg-primary { background-color: var(--primary-color) !important; }
 .btn-primary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
+    padding: 10px 24px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.btn-primary:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 33, 71, 0.2);
 }
 
-.btn-primary:hover {
-    background-color: #002244;
-    border-color: #002244;
+/* Navbar Modernization */
+.navbar {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: var(--text-dark) !important;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s;
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
 }
 
 /* Hero Section */
