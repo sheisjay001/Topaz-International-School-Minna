@@ -21,7 +21,7 @@
 <body>
 
 <!-- Top Bar -->
-<div class="top-bar py-2 text-white">
+<div class="top-bar py-2 text-primary">
     <div class="container">
         <div class="row">
             <div class="col-md-6 text-start">
