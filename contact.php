@@ -25,8 +25,8 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h5 class="fw-bold">Our Location</h5>
-                        <p class="text-muted">Minna, Niger State, Nigeria</p>
+                        <h5 class="fw-bold text-primary">Our Location</h5>
+                        <p class="text-primary fw-medium">Minna, Niger State, Nigeria</p>
                     </div>
                 </div>
 
@@ -37,8 +37,8 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h5 class="fw-bold">Phone Number</h5>
-                        <p class="text-muted">+234 800 123 4567</p>
+                        <h5 class="fw-bold text-primary">Phone Number</h5>
+                        <p class="text-primary fw-medium">+234 800 123 4567</p>
                     </div>
                 </div>
 
@@ -49,8 +49,8 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h5 class="fw-bold">Email Address</h5>
-                        <p class="text-muted">info@topazschoolminna.com</p>
+                        <h5 class="fw-bold text-primary">Email Address</h5>
+                        <p class="text-primary fw-medium">info@topazschoolminna.com</p>
                     </div>
                 </div>
 
