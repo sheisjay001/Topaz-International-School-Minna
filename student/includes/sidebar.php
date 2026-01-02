@@ -39,7 +39,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <a href="#" id="darkModeToggle" class="menu-item">
             <i class="fas fa-moon"></i> Dark Mode
         </a>
-        <a href="../includes/logout.php" class="menu-item mt-5 text-danger">
+        <a href="../includes/logout.php?type=student" class="menu-item mt-5 text-danger">
             <i class="fas fa-sign-out-alt"></i> Logout
         </a>
     </div>

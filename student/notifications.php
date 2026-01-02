@@ -91,7 +91,7 @@ $result = $conn->query($query);
         <a href="#" id="darkModeToggle" class="menu-item">
             <i class="fas fa-moon"></i> Dark Mode
         </a>
-        <a href="../includes/logout.php" class="menu-item text-danger mt-3">
+        <a href="../includes/logout.php?type=student" class="menu-item text-danger mt-3">
             <i class="fas fa-sign-out-alt"></i> Logout
         </a>
     </div>

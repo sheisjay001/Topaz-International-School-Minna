@@ -3,7 +3,15 @@ session_start();
 
 $redirect_url = '../login.php'; // Default fallback
 
-if (isset($_SESSION['role'])) {
+// Check for explicit type parameter
+if (isset($_GET['type'])) {
+    if ($_GET['type'] === 'student') {
+        $redirect_url = '../student_login.php';
+    } elseif ($_GET['type'] === 'staff' || $_GET['type'] === 'admin') {
+        $redirect_url = '../login.php';
+    }
+} elseif (isset($_SESSION['role'])) {
+    // Fallback to session role if type not provided
     if ($_SESSION['role'] === 'student') {
         $redirect_url = '../student_login.php';
     } elseif ($_SESSION['role'] === 'staff' || $_SESSION['role'] === 'admin') {
