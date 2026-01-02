@@ -74,9 +74,17 @@ include 'includes/header.php';
 <?php include 'includes/sidebar.php'; ?>
 
 <!-- Main Content -->
-<div class="main-content" id="main-content">
+<div class="main-content fade-in" id="main-content">
     <!-- Topbar -->
     <?php include 'includes/topbar.php'; ?>
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4 fade-in">
+        <ol class="breadcrumb bg-transparent p-0">
+            <li class="breadcrumb-item"><a href="index.php" class="text-primary text-decoration-none"><i class="fas fa-home me-1"></i> Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+        </ol>
+    </nav>
 
     <!-- Welcome Section -->
     <div class="d-flex justify-content-between align-items-center mb-4 text-white">
@@ -89,7 +97,7 @@ include 'includes/header.php';
     <!-- Stats Row -->
     <div class="row g-4 mb-4">
         <div class="col-md-4">
-            <div class="card stat-card p-3 h-100">
+            <div class="card stat-card p-3 h-100 hover-scale">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="text-muted text-uppercase small fw-bold">Attendance</h6>
@@ -102,7 +110,7 @@ include 'includes/header.php';
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card stat-card p-3 h-100">
+            <div class="card stat-card p-3 h-100 hover-scale">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="text-muted text-uppercase small fw-bold">Next Exam</h6>
@@ -115,7 +123,7 @@ include 'includes/header.php';
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card stat-card p-3 h-100">
+            <div class="card stat-card p-3 h-100 hover-scale">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="text-muted text-uppercase small fw-bold">Fee Status</h6>

@@ -1,0 +1,20 @@
+{
+  "name": "Topaz International School",
+  "short_name": "Topaz School",
+  "start_url": "../student/index.php",
+  "display": "standalone",
+  "background_color":="#f8f9fa",
+  "theme_color": "#002147",
+  "icons": [
+    {
+      "src": "img/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

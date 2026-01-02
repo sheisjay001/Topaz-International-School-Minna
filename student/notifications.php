@@ -98,7 +98,7 @@ $result = $conn->query($query);
 </div>
 
 <!-- Main Content -->
-<div class="main-content" id="main-content">
+<div class="main-content fade-in" id="main-content">
     <!-- Topbar -->
     <div class="topbar">
         <button class="btn btn-light d-lg-none" id="sidebarToggle"><i class="fas fa-bars"></i></button>
@@ -137,8 +137,10 @@ $result = $conn->query($query);
                     </div>
                     <?php endwhile; ?>
                 <?php else: ?>
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle me-2"></i> No new notifications at the moment.
+                    <div class="empty-state">
+                        <i class="fas fa-bell-slash empty-state-icon"></i>
+                        <h4 class="empty-state-title">No Notifications Yet</h4>
+                        <p class="empty-state-text">You're all caught up! Check back later for announcements, exam schedules, and important updates.</p>
                     </div>
                 <?php endif; ?>
             </div>
