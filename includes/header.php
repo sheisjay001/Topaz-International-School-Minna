@@ -21,8 +21,8 @@
 <body>
 
 <!-- Top Bar -->
-<!-- Deployment v1.3 -->
-<div class="top-bar py-2 text-primary">
+<!-- Deployment v1.4 -->
+<div class="top-bar py-2 text-primary bg-light">
     <div class="container">
         <div class="row">
             <div class="col-md-6 text-start">
