@@ -1,7 +1,7 @@
 <?php include 'includes/header.php'; ?>
 
 <!-- Page Header -->
-<div class="bg-primary text-white py-5 text-center">
+<div class="text-white py-5 text-center" style="background-color: #0c2340;">
     <div class="container">
         <h1 class="fw-bold">Admissions</h1>
         <p class="lead">Join the Topaz International School Family</p>

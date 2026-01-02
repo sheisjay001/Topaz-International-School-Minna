@@ -179,7 +179,7 @@
 </section>
 
 <!-- Call to Action -->
-<section class="py-5 bg-primary text-white text-center">
+<section class="py-5 text-white text-center" style="background-color: #0c2340;">
     <div class="container">
         <h2 class="fw-bold mb-4">Ready to Join the Topaz Family?</h2>
         <p class="lead mb-4">Secure your child's future with world-class education and discipline.</p>

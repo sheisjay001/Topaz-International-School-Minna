@@ -1,7 +1,7 @@
 <?php include 'includes/header.php'; ?>
 
 <!-- Header -->
-<header class="py-5 bg-primary text-white text-center">
+<header class="py-5 text-white text-center" style="background-color: #0c2340;">
     <div class="container">
         <h1 class="display-4 font-weight-bold" data-aos="fade-down">School Gallery</h1>
         <p class="lead" data-aos="fade-up" data-aos-delay="100">A glimpse into life at Topaz International School Minna</p>
