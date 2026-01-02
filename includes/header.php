@@ -21,8 +21,8 @@
 <body>
 
 <!-- Top Bar -->
-<!-- Deployment v1.4 -->
-<div class="top-bar py-2 text-primary bg-light">
+<!-- Deployment v1.5 -->
+<div class="top-bar py-2 text-primary" style="background-color: var(--secondary-color);">
     <div class="container">
         <div class="row">
             <div class="col-md-6 text-start">
