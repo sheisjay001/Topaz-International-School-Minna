@@ -1,10 +1,10 @@
 :root {
-    --primary-color: #002147; /* Navy Blue */
+    --primary-color: #0c2340; /* Professional Deep Navy */
     --secondary-color: #FFD700; /* Gold */
     --accent-color: #a52a2a; /* Maroon */
     --text-color: #333;
     --light-bg: #f8f9fa;
-    --gradient-primary: linear-gradient(135deg, #002147 0%, #004e92 100%);
+    --gradient-primary: linear-gradient(135deg, #0c2340 0%, #102a43 100%);
 }
 
 body {

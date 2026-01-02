@@ -20,9 +20,9 @@
         }
         /* Override Dashboard Sidebar for Glassmorphism */
         .sidebar {
-            background: rgba(0, 33, 71, 0.95); /* Deep Navy Glass */
+            background: rgba(12, 35, 64, 0.98); /* Deep Professional Navy Glass */
             backdrop-filter: blur(10px);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
         .sidebar-brand {
             color: var(--secondary-color) !important;
