@@ -1,10 +1,5 @@
 
-<!-- Footer -->
-<footer class="footer mt-auto py-3 bg-white text-center border-top">
-    <div class="container">
-        <span class="text-muted">© <?php echo date('Y'); ?> Topaz International School Minna. All rights reserved.</span>
-    </div>
-</footer>
+
 
 <!-- Mobile Sidebar Overlay -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>

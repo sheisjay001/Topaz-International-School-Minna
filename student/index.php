@@ -81,8 +81,8 @@ include 'includes/header.php';
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4 fade-in">
         <ol class="breadcrumb bg-transparent p-0">
-            <li class="breadcrumb-item"><a href="index.php" class="text-primary text-decoration-none"><i class="fas fa-home me-1"></i> Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item"><a href="index.php" class="text-white text-decoration-none"><i class="fas fa-home me-1"></i> Home</a></li>
+            <li class="breadcrumb-item active text-white" aria-current="page">Dashboard</li>
         </ol>
     </nav>
 

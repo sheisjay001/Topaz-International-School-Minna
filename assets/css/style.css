@@ -7,6 +7,10 @@
     --gradient-primary: linear-gradient(135deg, #0c2340 0%, #102a43 100%);
 }
 
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
 body {
     font-family: 'Poppins', sans-serif; /* Modern Font */
     color: var(--text-color);
@@ -70,7 +74,7 @@ a {
 
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(rgba(0, 33, 71, 0.8), rgba(0, 33, 71, 0.8)), url('../img/hero-bg.jpg');
+    background: linear-gradient(rgba(0, 33, 71, 0.8), rgba(0, 33, 71, 0.8)), url('../images/download.jfif');
     background-size: cover;
     background-position: center;
     color: white;
