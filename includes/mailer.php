@@ -152,4 +152,22 @@ class Mailer {
         ";
         return $this->send($to, $subject, $body);
     }
+
+    /**
+     * Send OTP
+     */
+    public function sendOTP($to, $name, $otp) {
+        $subject = "Login Verification Code";
+        $body = "
+            <h2>Login Verification</h2>
+            <p>Dear $name,</p>
+            <p>A login attempt was detected from a new device or location.</p>
+            <p>Your verification code is:</p>
+            <h1 style='color: #003366; letter-spacing: 5px; font-size: 32px; background: #eee; padding: 10px; display: inline-block; border-radius: 5px;'>$otp</h1>
+            <p>This code expires in 10 minutes.</p>
+            <p>If this wasn't you, please change your password immediately.</p>
+        ";
+        return $this->send($to, $subject, $body);
+    }
 }
+?>

@@ -1,5 +1,5 @@
 <div class="topbar glass-panel mb-4 <?php echo isset($topbar_class) ? $topbar_class : ''; ?>">
-    <button class="btn btn-light d-lg-none" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+    <button class="btn btn-light d-lg-none me-2" id="sidebarToggle"><i class="fas fa-bars"></i></button>
     <h4 class="mb-0 fw-bold text-primary"><?php echo isset($page_title) ? $page_title : 'Dashboard'; ?></h4>
     
     <!-- Global Search -->
@@ -8,6 +8,11 @@
             <span class="input-group-text bg-white border-0 ps-3"><i class="fas fa-search text-muted"></i></span>
             <input type="text" class="form-control border-0 bg-white" placeholder="Search results, fees..." aria-label="Search">
         </div>
+    </div>
+
+    <!-- Notifications -->
+    <div class="ms-3 me-3 position-relative notification-wrapper">
+        <a href="notifications.php" class="text-secondary"><i class="fas fa-bell fa-lg"></i></a>
     </div>
 
     <div class="user-profile">

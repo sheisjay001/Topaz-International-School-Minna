@@ -35,10 +35,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
-            // Check for 2FA
-            if ($row['two_factor_enabled']) {
+            // Check for New Device (IP)
+            $stmt_ip = $conn->prepare("SELECT id FROM user_logins WHERE user_id = ? AND ip_address = ?");
+            $stmt_ip->bind_param("is", $row['id'], $ip);
+            $stmt_ip->execute();
+            $is_known_device = $stmt_ip->get_result()->num_rows > 0;
+
+            // Check for 2FA or New Device
+            if ($row['two_factor_enabled'] || !$is_known_device) {
                 $_SESSION['2fa_pending_user_id'] = $row['id'];
-                $_SESSION['2fa_role'] = $row['role']; // Store role for redirection after 2FA
+                $_SESSION['2fa_role'] = $row['role'];
+                
+                if (!$is_known_device) {
+                    // New Device -> Email OTP
+                    $otp = sprintf("%06d", mt_rand(100000, 999999));
+                    $expiry = date('Y-m-d H:i:s', strtotime('+10 minutes'));
+                    
+                    $update = $conn->prepare("UPDATE users SET otp_code = ?, otp_expiry = ? WHERE id = ?");
+                    $update->bind_param("ssi", $otp, $expiry, $row['id']);
+                    $update->execute();
+                    
+                    // Send Email
+                    require_once __DIR__ . '/includes/mailer.php';
+                    $mailer = new Mailer();
+                    // Send to username (email)
+                    $mailer->sendOTP($row['username'], $row['full_name'], $otp);
+                    
+                    $_SESSION['2fa_method'] = 'email';
+                } else {
+                    // Known Device but 2FA Enabled -> TOTP
+                    $_SESSION['2fa_method'] = 'totp';
+                }
+                
                 header("Location: verify_2fa.php");
                 exit();
             }
@@ -47,6 +75,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['username'] = $row['username'];
             $_SESSION['role'] = $row['role'];
             $_SESSION['full_name'] = $row['full_name'];
+
+            // Register Known Device
+            $stmt_log = $conn->prepare("INSERT INTO user_logins (user_id, ip_address, user_agent) VALUES (?, ?, ?)");
+            $ua = $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown';
+            $stmt_log->bind_param("iss", $row['id'], $ip, $ua);
+            $stmt_log->execute();
 
             // Log Login
             log_activity($conn, $row['id'], $row['role'], 'Logged in');
@@ -90,25 +124,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
         body {
-            background-color: var(--light-bg);
+            font-family: 'Poppins', sans-serif;
+            background: url('assets/images/school-building.jfif') no-repeat center center fixed;
+            background-size: cover;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            overflow: hidden;
         }
+        
+        /* Dark Overlay */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 33, 71, 0.65); /* Topaz Navy Blue Overlay */
+            backdrop-filter: blur(4px);
+            z-index: 0;
+        }
+
         .login-card {
+            position: relative;
+            z-index: 1;
             max-width: 400px;
             width: 100%;
-            border: none;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border-radius: 24px;
+            overflow: hidden; /* For header radius */
         }
         .login-header {
-            background: var(--gradient-red);
-            color: white;
+            background: transparent; /* Remove solid background */
+            color: #003366; /* Dark text for contrast on glass */
             padding: 30px;
             text-align: center;
-            border-radius: 15px 15px 0 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .form-control {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 0 0.25rem rgba(0, 51, 102, 0.25);
+        }
+        .input-group-text {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-right: none;
         }
     </style>
 </head>

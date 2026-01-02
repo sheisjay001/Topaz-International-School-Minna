@@ -49,7 +49,7 @@ include 'includes/header.php';
     <?php include 'includes/topbar.php'; ?>
 
     <div class="container-fluid">
-        <h2 class="fw-bold mb-4">Computer Based Tests</h2>
+        <h2 class="fw-bold mb-4 text-white">Computer Based Tests</h2>
 
         <div class="row">
             <?php while($exam = $exams->fetch_assoc()): ?>
@@ -75,7 +75,7 @@ include 'includes/header.php';
         </div>
 
         <!-- CBT History Section -->
-        <h4 class="fw-bold mt-5 mb-3"><i class="fas fa-history me-2"></i> Exam History</h4>
+        <h4 class="fw-bold mt-5 mb-3 text-white"><i class="fas fa-history me-2"></i> Exam History</h4>
         <div class="card shadow-sm border-0">
             <div class="card-body">
                 <div class="table-responsive">
@@ -117,6 +117,5 @@ include 'includes/header.php';
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/dashboard.js"></script>
-<script src="../assets/js/dark-mode.js"></script>
 </body>
 </html>

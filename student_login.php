@@ -130,23 +130,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ajax_login'])) {
 
         /* Glassmorphism Card */
         .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 24px;
             padding: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             transform: translateY(0);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .glass-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.45);
         }
 
         .brand-logo-container {
-            text-center;
+            text-align: center;
             margin-bottom: 30px;
             position: relative;
         }
@@ -156,14 +157,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['ajax_login'])) {
             height: 90px;
             object-fit: cover;
             border-radius: 50%;
-            border: 4px solid #fff;
+            border: 4px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
         .form-floating > .form-control {
             border-radius: 12px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.6);
             padding-left: 15px;
+            backdrop-filter: blur(5px);
         }
         
         .form-floating > .form-control:focus {

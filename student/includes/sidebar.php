@@ -36,9 +36,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <a href="activity_log.php" class="menu-item <?php echo ($current_page == 'activity_log.php') ? 'active' : ''; ?>">
             <i class="fas fa-history"></i> Activity Log
         </a>
-        <a href="#" id="darkModeToggle" class="menu-item">
-            <i class="fas fa-moon"></i> Dark Mode
-        </a>
         <a href="../includes/logout.php?type=student" class="menu-item mt-5 text-danger">
             <i class="fas fa-sign-out-alt"></i> Logout
         </a>

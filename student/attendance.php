@@ -38,7 +38,7 @@ include 'includes/header.php';
     <?php include 'includes/topbar.php'; ?>
 
     <div class="container-fluid">
-        <h2 class="fw-bold mb-4">Attendance Record</h2>
+        <h2 class="fw-bold mb-4 text-white">Attendance Record</h2>
 
         <div class="card shadow-sm border-0">
             <div class="card-body">

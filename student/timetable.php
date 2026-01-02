@@ -41,7 +41,7 @@ include 'includes/header.php';
 
         <div class="container-fluid">
 
-        <h2 class="fw-bold mb-4">Exam & Test Timetables</h2>
+        <h2 class="fw-bold mb-4 text-white">Exam & Test Timetables</h2>
 
         <div class="row">
             <?php if($result->num_rows > 0): ?>

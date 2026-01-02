@@ -65,7 +65,7 @@ include 'includes/header.php';
 
     <div class="container-fluid">
 
-        <h2 class="fw-bold mb-4 no-print">School Fees & Payment History</h2>
+        <h2 class="fw-bold mb-4 no-print text-white">School Fees & Payment History</h2>
 
         <?php if(isset($_GET['status'])): ?>
             <?php if($_GET['status'] == 'success'): ?>
@@ -243,6 +243,7 @@ include 'includes/header.php';
 
 <?php include 'includes/footer.php'; ?>
 <script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
     const paymentForm = document.getElementById('paymentForm');
     paymentForm.addEventListener("submit", payWithPaystack, false);
@@ -272,6 +273,43 @@ include 'includes/header.php';
 
         handler.openIframe();
     }
+
+    // Confetti Animation for Successful Payment
+    document.addEventListener("DOMContentLoaded", function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('status') === 'success') {
+            // School pride colors (e.g., Gold and Blue) or festive colors
+            var duration = 5 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10000 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                var particleCount = 50 * (timeLeft / duration);
+                
+                // Fire from left
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } 
+                }));
+                
+                // Fire from right
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } 
+                }));
+            }, 250);
+        }
+    });
 </script>
 </body>
 </html>

@@ -20,17 +20,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $user = $stmt->get_result()->fetch_assoc();
 
-    $tfa = new TwoFactorAuth('Topaz International School');
-    if ($tfa->verifyCode($user['two_factor_secret'], $code)) {
+    $verified = false;
+    $method = $_SESSION['2fa_method'] ?? 'totp';
+
+    if ($method === 'email') {
+        if ($user['otp_code'] === $code && strtotime($user['otp_expiry']) > time()) {
+            $verified = true;
+            // Clear OTP
+            $conn->query("UPDATE users SET otp_code = NULL, otp_expiry = NULL WHERE id = $user_id");
+        }
+    } else {
+        $tfa = new TwoFactorAuth('Topaz International School');
+        if ($tfa->verifyCode($user['two_factor_secret'], $code)) {
+            $verified = true;
+        }
+    }
+
+    if ($verified) {
         // Code is valid, complete login
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['role'];
         $_SESSION['full_name'] = $user['full_name'];
         
+        // Register Device
+        $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+        $stmt_log = $conn->prepare("INSERT INTO user_logins (user_id, ip_address, user_agent) VALUES (?, ?, ?)");
+        $ua = $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown';
+        $stmt_log->bind_param("iss", $user['id'], $ip, $ua);
+        $stmt_log->execute();
+        
         // Clear pending 2FA session
         unset($_SESSION['2fa_pending_user_id']);
         unset($_SESSION['2fa_role']);
+        unset($_SESSION['2fa_method']);
 
         // Log Login
         log_activity($conn, $user['id'], $user['role'], 'Logged in (2FA)');

@@ -72,9 +72,15 @@ if (isset($_POST['check_result'])) {
             $stmt = $conn->prepare("SELECT * FROM results WHERE student_id = ? AND term = ? AND session = ?");
             $stmt->bind_param("iss", $student_id, $term, $session);
             $stmt->execute();
-            $results_data = $stmt->get_result();
+            $result_set = $stmt->get_result();
+            
+            // Store results in array for multiple usage (Table & Chart)
+            $results_array = [];
+            while ($row = $result_set->fetch_assoc()) {
+                $results_array[] = $row;
+            }
 
-            if ($results_data->num_rows > 0) {
+            if (count($results_array) > 0) {
                 $show_result = true;
             } else {
                 $error_msg = "No results found for $term $session.";
@@ -185,6 +191,17 @@ include 'includes/header.php';
                     <div class="col-md-6"><strong>Gender:</strong> <?php echo htmlspecialchars($student['gender']); ?></div>
                 </div>
 
+                <!-- Visual Performance Chart -->
+                <div class="row mb-4 no-print">
+                    <div class="col-12">
+                        <div class="card border-0 bg-light">
+                            <div class="card-body">
+                                <canvas id="termPerformanceChart" style="max-height: 300px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Table -->
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped mt-3">
@@ -202,12 +219,21 @@ include 'includes/header.php';
                             <?php 
                             $total_score = 0;
                             $count = 0;
-                            while ($row = $results_data->fetch_assoc()): 
+                            
+                            // Arrays for Chart
+                            $chart_subjects = [];
+                            $chart_scores = [];
+
+                            foreach ($results_array as $row): 
                                 $ca = $row['ca_score'];
                                 $exam = $row['exam_score'];
                                 $score = ($row['score'] > 0) ? $row['score'] : ($ca + $exam);
                                 $total_score += $score;
                                 $count++;
+
+                                // Add to chart data
+                                $chart_subjects[] = $row['subject'];
+                                $chart_scores[] = $score;
 
                                 $grade = 'F';
                                 $remark = 'Fail';
@@ -225,7 +251,7 @@ include 'includes/header.php';
                                 <td class="text-center fw-bold"><?php echo $grade; ?></td>
                                 <td class="text-center"><?php echo $remark; ?></td>
                             </tr>
-                            <?php endwhile; ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -252,5 +278,58 @@ include 'includes/header.php';
 </div>
 
 <?php include 'includes/footer.php'; ?>
+<?php if ($show_result): ?>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('termPerformanceChart').getContext('2d');
+        const subjects = <?php echo json_encode($chart_subjects); ?>;
+        const scores = <?php echo json_encode($chart_scores); ?>;
+        
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: subjects,
+                datasets: [{
+                    label: 'Score',
+                    data: scores,
+                    backgroundColor: scores.map(s => {
+                        if(s >= 70) return 'rgba(40, 167, 69, 0.7)'; // Success/Green
+                        if(s >= 50) return 'rgba(0, 51, 102, 0.7)';  // Primary/Blue
+                        return 'rgba(220, 53, 69, 0.7)';             // Danger/Red
+                    }),
+                    borderColor: scores.map(s => {
+                        if(s >= 70) return '#28a745';
+                        if(s >= 50) return '#003366';
+                        return '#dc3545';
+                    }),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: 'Score' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.raw + ' Marks';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+<?php endif; ?>
 </body>
 </html>

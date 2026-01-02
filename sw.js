@@ -1,9 +1,7 @@
 const CACHE_NAME = 'topaz-school-v1';
 const ASSETS_TO_CACHE = [
     'assets/css/style.css',
-    'assets/css/dark-mode.css',
     'assets/js/dashboard.js',
-    'assets/js/dark-mode.js',
     'assets/manifest.json',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',

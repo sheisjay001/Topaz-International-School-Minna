@@ -38,7 +38,6 @@ $result = $conn->query($query);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
-    <link rel="stylesheet" href="../assets/css/dark-mode.css">
     <style>
         body { background-color: #f8f9fa; }
         .notification-card { transition: transform 0.2s; border-left: 4px solid #003366; }
@@ -87,9 +86,6 @@ $result = $conn->query($query);
         </a>
         <a href="activity_log.php" class="menu-item">
             <i class="fas fa-history"></i> Activity Log
-        </a>
-        <a href="#" id="darkModeToggle" class="menu-item">
-            <i class="fas fa-moon"></i> Dark Mode
         </a>
         <a href="../includes/logout.php?type=student" class="menu-item text-danger mt-3">
             <i class="fas fa-sign-out-alt"></i> Logout

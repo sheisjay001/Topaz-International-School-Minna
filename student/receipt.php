@@ -34,7 +34,6 @@ $student_class = $_SESSION['student_class'];
     <meta charset="UTF-8">
     <title>Payment Receipt | <?php echo $receipt_no; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/dark-mode.css">
     <style>
         body { background: #f5f5f5; }
         .receipt-container {
@@ -138,6 +137,5 @@ $student_class = $_SESSION['student_class'];
 </div>
 </div>
 
-<script src="../assets/js/dark-mode.js"></script>
 </body>
 </html>
