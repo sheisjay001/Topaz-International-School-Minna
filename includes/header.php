@@ -22,15 +22,15 @@
 
 <!-- Top Bar -->
 <!-- Deployment v1.5 -->
-<div class="top-bar py-2 text-black" style="background-color: var(--secondary-color);">
+<div class="top-bar py-2 text-white" style="background-color: var(--accent-color);">
     <div class="container">
         <div class="row">
             <div class="col-md-6 text-start">
-                <small class="text-black"><i class="fas fa-envelope me-2"></i>info@topazschoolminna.com</small>
-                <small class="ms-3 text-black"><i class="fas fa-phone me-2"></i>+234 800 123 4567</small>
+                <small class="text-white"><i class="fas fa-envelope me-2"></i>info@topazschoolminna.com</small>
+                <small class="ms-3 text-white"><i class="fas fa-phone me-2"></i>+234 800 123 4567</small>
             </div>
             <div class="col-md-6 text-end d-none d-md-block">
-                <small class="text-black">Minna, Niger State, Nigeria</small>
+                <small class="text-white">Minna, Niger State, Nigeria</small>
             </div>
         </div>
     </div>
@@ -39,7 +39,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
     <div class="container">
-        <a class="navbar-brand fw-bold text-primary" href="index.php">
+        <a class="navbar-brand fw-bold" href="index.php" style="color: var(--accent-color) !important;">
             <i class="fas fa-graduation-cap me-2"></i>TISM
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
