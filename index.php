@@ -8,7 +8,7 @@
                 <h1 class="hero-title text-white" data-aos="fade-down">Topaz International School Minna</h1>
                 <p class="hero-subtitle text-white lead" data-aos="fade-up" data-aos-delay="200">Fostering Discipline, Promoting Excellence, and Building Future Leaders through Quality Education and ICT Integration.</p>
                 <div class="d-flex justify-content-center gap-3" data-aos="zoom-in" data-aos-delay="400">
-                    <a href="admissions.php" class="btn btn-warning btn-lg px-4 fw-bold">Apply Now</a>
+                    <a href="admissions.php" class="btn btn-lg px-4 fw-bold text-white" style="background-color: var(--accent-color); border-color: var(--accent-color);">Apply Now</a>
                     <a href="about.php" class="btn btn-outline-light btn-lg px-4">Learn More</a>
                 </div>
             </div>

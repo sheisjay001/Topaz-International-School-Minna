@@ -11,6 +11,10 @@
     color: var(--primary-color) !important;
 }
 
+.text-accent {
+    color: var(--accent-color) !important;
+}
+
 body {
     font-family: 'Poppins', sans-serif; /* Modern Font */
     color: var(--text-color);
