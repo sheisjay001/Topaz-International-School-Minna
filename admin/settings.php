@@ -61,44 +61,6 @@ $smtp_config = [
     'From Email' => defined('SMTP_FROM_EMAIL') ? SMTP_FROM_EMAIL : 'Not Set',
     'From Name' => defined('SMTP_FROM_NAME') ? SMTP_FROM_NAME : 'Not Set',
 ];
-
-// Handle 2FA Toggle
-require_once __DIR__ . '/../vendor/autoload.php';
-use RobThree\Auth\TwoFactorAuth;
-
-$tfa = new TwoFactorAuth('Topaz International School');
-$secret = $user['two_factor_secret'];
-$qrCodeUrl = '';
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['toggle_2fa'])) {
-    if ($user['two_factor_enabled']) {
-        // Disable 2FA
-        $conn->query("UPDATE users SET two_factor_enabled = 0, two_factor_secret = NULL WHERE id = $user_id");
-        $message = "Two-Factor Authentication disabled.";
-        $user['two_factor_enabled'] = 0;
-        $secret = null;
-    } else {
-        // Enable 2FA - Step 1: Generate Secret
-        if (!$secret) {
-            $secret = $tfa->createSecret();
-            $conn->query("UPDATE users SET two_factor_secret = '$secret' WHERE id = $user_id");
-            $user['two_factor_secret'] = $secret;
-        }
-        // Step 2: User must verify code to confirm enablement (handled in frontend logic or simple toggle for now)
-        // For simplicity, we enable it immediately but show the QR code.
-        // Ideally, we should ask for a code before flipping the 'enabled' bit.
-        // Let's just generate the secret and show QR. The user "Enables" it by scanning. 
-        // Real logic: Save secret, but set enabled = 0. Show QR. User enters code. If correct, set enabled = 1.
-        // Simplified for this task:
-        $conn->query("UPDATE users SET two_factor_enabled = 1, two_factor_secret = '$secret' WHERE id = $user_id");
-        $message = "Two-Factor Authentication enabled. Please scan the QR code.";
-        $user['two_factor_enabled'] = 1;
-    }
-}
-
-if ($user['two_factor_enabled'] && $secret) {
-    $qrCodeUrl = $tfa->getQRCodeImageAsDataUri('Topaz Admin (' . $user['username'] . ')', $secret);
-}
 ?>
 
 <!DOCTYPE html>
@@ -261,37 +223,7 @@ if ($user['two_factor_enabled'] && $secret) {
                 </div>
             </div>
 
-            <!-- 2FA Settings -->
-            <div class="col-md-6 mb-4">
-                <div class="card p-4">
-                    <h5 class="mb-4">Two-Factor Authentication</h5>
-                    <p>Protect your account with an extra layer of security.</p>
-                    
-                    <?php if ($user['two_factor_enabled']): ?>
-                        <div class="alert alert-success">
-                            <i class="fas fa-check-circle me-2"></i> 2FA is currently <strong>ENABLED</strong>.
-                        </div>
-                        <?php if ($qrCodeUrl): ?>
-                            <div class="text-center mb-3">
-                                <p>Scan this QR code with your Authenticator App (Google Authenticator, Authy, etc.)</p>
-                                <img src="<?php echo $qrCodeUrl; ?>" alt="QR Code" class="img-fluid border p-2">
-                                <p class="text-muted small mt-2">Secret: <?php echo chunk_split($secret, 4, ' '); ?></p>
-                            </div>
-                        <?php endif; ?>
-                    <?php else: ?>
-                        <div class="alert alert-warning">
-                            <i class="fas fa-exclamation-triangle me-2"></i> 2FA is currently <strong>DISABLED</strong>.
-                        </div>
-                    <?php endif; ?>
-
-                    <form method="POST">
-                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?? ''; ?>">
-                        <button type="submit" name="toggle_2fa" class="btn <?php echo $user['two_factor_enabled'] ? 'btn-danger' : 'btn-success'; ?> w-100">
-                            <?php echo $user['two_factor_enabled'] ? 'Disable 2FA' : 'Enable 2FA'; ?>
-                        </button>
-                    </form>
-                </div>
-            </div>
+            <!-- 2FA Settings (Removed) -->
 
         </div>
     </div>

@@ -41,36 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt_ip->execute();
             $is_known_device = $stmt_ip->get_result()->num_rows > 0;
 
-            // Check for 2FA or New Device
-            if ($row['two_factor_enabled'] || !$is_known_device) {
-                $_SESSION['2fa_pending_user_id'] = $row['id'];
-                $_SESSION['2fa_role'] = $row['role'];
-                
-                if (!$is_known_device) {
-                    // New Device -> Email OTP
-                    $otp = sprintf("%06d", mt_rand(100000, 999999));
-                    $expiry = date('Y-m-d H:i:s', strtotime('+10 minutes'));
-                    
-                    $update = $conn->prepare("UPDATE users SET otp_code = ?, otp_expiry = ? WHERE id = ?");
-                    $update->bind_param("ssi", $otp, $expiry, $row['id']);
-                    $update->execute();
-                    
-                    // Send Email
-                    require_once __DIR__ . '/includes/mailer.php';
-                    $mailer = new Mailer();
-                    // Send to username (email)
-                    $mailer->sendOTP($row['username'], $row['full_name'], $otp);
-                    
-                    $_SESSION['2fa_method'] = 'email';
-                } else {
-                    // Known Device but 2FA Enabled -> TOTP
-                    $_SESSION['2fa_method'] = 'totp';
-                }
-                
-                header("Location: verify_2fa.php");
-                exit();
-            }
-
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['username'] = $row['username'];
             $_SESSION['role'] = $row['role'];
