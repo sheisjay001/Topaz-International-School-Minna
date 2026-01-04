@@ -257,8 +257,8 @@ $teachers = $conn->query("SELECT * FROM users WHERE role = 'teacher' ORDER BY fu
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-muted small">Username</label>
-                            <input type="text" name="username" class="form-control" required>
+                            <label class="form-label text-muted small">Email Address (Username)</label>
+                            <input type="email" name="username" class="form-control" placeholder="e.g. teacher@school.com" required>
                         </div>
 
                         <div class="mb-3">
