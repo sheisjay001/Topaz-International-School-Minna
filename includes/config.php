@@ -31,8 +31,8 @@ if (file_exists(__DIR__ . '/../.env')) {
 }
 
 define('SMTP_HOST', getenv('SMTP_HOST') ?: 'smtp-relay.brevo.com');
-define('SMTP_USER', getenv('SMTP_USER') ?: 'your_email@example.com');
-define('SMTP_PASS', getenv('SMTP_PASS') ?: 'your_smtp_key');
+define('SMTP_USER', getenv('SMTP_USER') ?: '9ea7ad001@smtp-brevo.com');
+define('SMTP_PASS', getenv('SMTP_PASS') ?: ''); // Set via environment variable in production
 define('SMTP_PORT', getenv('SMTP_PORT') ?: 587);
 define('SMTP_FROM_EMAIL', getenv('SMTP_FROM_EMAIL') ?: 'autajoy2003@gmail.com');
 define('SMTP_FROM_NAME', getenv('SMTP_FROM_NAME') ?: 'Topaz International School');

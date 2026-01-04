@@ -169,6 +169,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <a href="manage_notifications.php" class="menu-item">
             <i class="fas fa-bell"></i> Notifications
         </a>
+        <a href="send_email.php" class="menu-item">
+            <i class="fas fa-envelope"></i> Send Email
+        </a>
         <a href="manage_pins.php" class="menu-item">
             <i class="fas fa-key"></i> Scratch Cards
         </a>
